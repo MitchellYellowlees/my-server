@@ -1,11 +1,6 @@
 const express = require('express')
 const cors = require('cors')
 const mongoose = require('mongoose')
-var http = require('http');
-var https = require('https');
-var fs = require('fs');
-
-
 
 //requiring dotenv
 const dotenv = require('dotenv')
@@ -38,12 +33,7 @@ const { server } = require('sinon')
 app.use('/entries', entryRouter)
 app.use('/users', userRouter)
 
-var options = {
-    key: fs.readFileSync('key.pem'),
-    ca: fs.readFileSync('certificate.pem')
-}
-
-https.createServer(options, app).listen(process.env.PORT || PORT, () => {
+app.listen(process.env.PORT || PORT, () => {
     console.log(`Server is running on port: ${PORT}`)
 })
 
