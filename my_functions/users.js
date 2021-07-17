@@ -49,10 +49,11 @@ exports.handler = async function (event, context) {
         //GET user entries via email
     }
     else if (userEmail === "create-user") {
-        await db.collection("users").insertOne({email:"testuser@mail.com"})
+        const newMail = event.queryStringParameters.email
+        await db.collection("users").insertOne({email: newMail})
         const response = {
             statusCode: 200,
-            body: JSON.stringify(event.queryStringParameters.email),
+            body: JSON.stringify("New user added successfully"),
         };
         return response;
         //POST new user
