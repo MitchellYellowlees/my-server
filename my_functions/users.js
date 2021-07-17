@@ -39,9 +39,10 @@ exports.handler = async function (event, context) {
         //GET user via email
     }
     else if (command === "entries-with-email"){
+        const result =  await db.collection("users").findOne({email: userEmail}).populate("entries").exec()
         const response = {
             statusCode: 200,
-            body: JSON.stringify('Get entries with an email'),
+            body: JSON.stringify(result),
         };
         return response;
         //GET user entries via email
