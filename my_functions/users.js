@@ -28,10 +28,10 @@ exports.handler = async function (event, context) {
     
     
     if (command === "get-by-email") {
-        const result = await db.collection("user").findOne({email: userEmail});
+        const result = await db.collection("user").find({}).toArray();
         const response = {
             statusCode: 200,
-            body:JSON.stringify("i am a user"),
+            body:JSON.stringify(result),
         };
         return response;
 
