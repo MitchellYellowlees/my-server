@@ -1,13 +1,17 @@
 const User = require('../models/user.model')
 const cors = require('cors')
+const express = require('express')
+const mongoose = require("mongoose")
+const dotenv = require('dotenv')
+
 
 exports.handler = async function (event, context) {
+    dotenv.config()
     const commandArray = event.path.split("/")
     let userEmail = commandArray.pop()
     let command = commandArray.pop()
 
-    const express = require('express')
-    const mongoose = require("mongoose")
+    
     var app = express()
     app.use(cors())
     app.use(express.json())
