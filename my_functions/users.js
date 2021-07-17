@@ -39,6 +39,7 @@ exports.handler = async function (event, context) {
         //GET user via email
     }
     else if (command === "entries-with-email"){
+        //NOT YET WORKING
         const result =  await db.collection("users").find({email: userEmail}, {email:0})
         const response = {
             statusCode: 200,
@@ -48,11 +49,16 @@ exports.handler = async function (event, context) {
         //GET user entries via email
     }
     else if (userEmail === "create-user") {
-        const response = {
-            statusCode: 200,
-            body: JSON.stringify('Create User'),
-        };
-        return response;
+        await db.collection("users").post((req, res) => {
+            const email = req.body.email
+
+    const newUser = new User({
+        email,
+    })
+
+    newUser
+    .save()
+        })
         //POST new user
     }
     
