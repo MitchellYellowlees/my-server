@@ -4,6 +4,11 @@ exports.handler = async function (event, context) {
     let email = commandArray.pop()
     let command = commandArray.pop()
     
+    const express = require('express')
+    const mongoose = require("mongoose")
+    var app = express()
+    mongoose.connect(process.env.CONNECTIONSTRING, { useNewUrlParser: true, useUnifiedTopology: true })
+
     if (command === "get-by-email") {
         const response = {
             statusCode: 200,
