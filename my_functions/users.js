@@ -52,7 +52,7 @@ exports.handler = async function (event, context) {
         await db.collection("users").insertOne({email:"testmail@test.test"})
         const response = {
             statusCode: 200,
-            body: JSON.stringify(event),
+            body: JSON.stringify(event.queryStringParameters.email),
         };
         return response;
         //POST new user
