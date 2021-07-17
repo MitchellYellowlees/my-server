@@ -1,7 +1,8 @@
 
 exports.handler = async function (event, context) {
-    let email = event.path.split("/").pop()
-    let command = event.path.split("/").pop()
+    const commandArray = event.path.split("/")
+    let email = commandArray.pop()
+    let command = commandArray.split("/").pop()
     const response = {
         statusCode: 200,
         body: JSON.stringify(command+" "+email),
