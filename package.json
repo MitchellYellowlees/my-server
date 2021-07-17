@@ -1,15 +1,30 @@
 {
-    "main": "server.js",
-    "dependencies": {
-        "dotenv": "^10.0.0",
-        "mongodb": "^4.0.0"
-    },
-    "scripts": {
-        "dev": "react-scripts start",
-        "start": "serve -s build",
-        "build": "react-scripts build",
-        "test": "react-scripts test --env=jsdom",
-        "eject": "react-scripts eject",
-        "heroku-postbuild": "npm run build"
-    }
+  "main": "server.js",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "mongodb": "^4.0.0"
+  },
+  "scripts": {
+    "dev": "react-scripts start",
+    "start": "serve -s build",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "heroku-postbuild": "npm run build"
+  },
+  "name": "my-server",
+  "description": "",
+  "version": "1.0.0",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MitchellYellowlees/my-server.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MitchellYellowlees/my-server/issues"
+  },
+  "homepage": "https://github.com/MitchellYellowlees/my-server#readme"
 }
