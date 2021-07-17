@@ -40,7 +40,7 @@ exports.handler = async function (event, context) {
     }
     else if (command === "entries-with-email"){
         //NOT YET WORKING
-        const result =  await db.collection("users").find({email: userEmail}, {email:0})
+        const result =  await db.collection("users").findOne({email: userEmail}, {email:1}.email)
         const response = {
             statusCode: 200,
             body: JSON.stringify(result),
