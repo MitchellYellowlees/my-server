@@ -39,7 +39,7 @@ exports.handler = async function (event, context) {
         //GET user via email
     }
     else if (command === "entries-with-email"){
-        const result =  await db.collection("users").find({email: userEmail}, {entries:1})
+        const result =  await db.collection("users").find({email: userEmail}, {email:0})
         const response = {
             statusCode: 200,
             body: JSON.stringify(result),
