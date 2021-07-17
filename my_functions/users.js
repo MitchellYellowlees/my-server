@@ -8,7 +8,12 @@ exports.handler = async function (event, context) {
     const express = require('express')
     const mongoose = require("mongoose")
     var app = express()
+    app.use(cors())
+    app.use(express.json())
+    
     mongoose.connect(process.env.CONNECTIONSTRING, { useNewUrlParser: true, useUnifiedTopology: true })
+
+
 
     if (command === "get-by-email") {
         app.get((userEmail, res) => {
