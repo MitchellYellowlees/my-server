@@ -7,43 +7,34 @@ const dotenv = require('dotenv')
 
 exports.handler = async function (event, context) {
     dotenv.config()
-    const commandArray = event.path.split("/")
-    let userEmail = commandArray.pop()
-    let command = commandArray.pop()
+    const app = express()
+    const port = process.env.PORT || 5000
 
-    
-    var app = express()
     app.use(cors())
     app.use(express.json())
 
     mongoose.connect(process.env.CONNECTIONSTRING, { useNewUrlParser: true, useUnifiedTopology: true })
 
-    return context;
+    const connection = mongoose.connection
+    connection.once('open', () => {
+        console.log('MongoDB connection established successfully')
+    })
 
-    if (command === "get-by-email") {
-        app.get((userEmail, res) => {
-            User.findOne({email: userEmail})
-            .then((user) => res.json({message: "Got user with email that was passed in", response: user,}))
-            .catch((err) => res.status(400).json({message:"Error: could not get user with given email", response:err,}))
-        })
-        //GET user via email
-    }
-    else if (command === "entries-with-email"){
-        const response = {
-            statusCode: 200,
-            body: JSON.stringify('Get entries with an email'),
-        };
-        return response;
-        //GET user entries via email
-    }
-    else if (userEmail === "create-user") {
-        const response = {
-            statusCode: 200,
-            body: JSON.stringify('Create User'),
-        };
-        return response;
-        //POST new user
-    }
-    
+    app.get('/', (req, res) => {
+        res.send('Node.js & Express are working. ')
+    })
+
+    //insert routes here
+    const entryRouter = require('./routes/entry')
+    const userRouter = require('./routes/user')
+
+    app.use('/entries', entryRouter)
+    app.use('/users', userRouter)
+
+    app.listen(port, () => {
+        console.log(`Server is running on port: ${PORT}`)
+    })
+
+module.exports = app
 
 }
