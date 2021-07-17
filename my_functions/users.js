@@ -3,12 +3,7 @@ exports.handler = async function (event, context) {
     const commandArray = event.path.split("/")
     let email = commandArray.pop()
     let command = commandArray.pop()
-    const response = {
-        statusCode: 200,
-        body: JSON.stringify(command+" "+email),
-    };
-    return response;
-    /** 
+    
     if (command === "get-by-email") {
         const response = {
             statusCode: 200,
@@ -33,6 +28,6 @@ exports.handler = async function (event, context) {
         return response;
         //POST new user
     }
-    **/
+    
 
 }
