@@ -28,11 +28,12 @@ exports.handler = async function (event, context) {
             User.findOne({email: userEmail})
             .then((user) => res.json({message: "Got user with email that was passed in", response: user,}))
             .catch((err) => res.status(400).json({message:"Error: could not get user with given email", response:err,}))
+            const response = {
+                statusCode: 200,
+                body: JSON.stringify('Do i get past this code'),
+            };
         })
-        const response = {
-            statusCode: 200,
-            body: JSON.stringify('Do i get past this code'),
-        };
+        
         return response;
         //GET user via email
     }
