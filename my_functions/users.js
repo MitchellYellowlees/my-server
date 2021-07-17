@@ -25,8 +25,8 @@ exports.handler = async function (event, context) {
     })
 
     //insert routes here
-    const entryRouter = require('./routes/entry')
-    const userRouter = require('./routes/user')
+    const entryRouter = require('../routes/entry')
+    const userRouter = require('../routes/user')
 
     app.use('/entries', entryRouter)
     app.use('/users', userRouter)
