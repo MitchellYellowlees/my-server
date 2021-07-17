@@ -31,7 +31,7 @@ exports.handler = async function (event, context) {
         const result = await db.collection("user").findOne({email: userEmail});
         const response = {
             statusCode: 200,
-            body:JSON.stringify(result),
+            body:JSON.stringify("i am a user"),
         };
         return response;
 
