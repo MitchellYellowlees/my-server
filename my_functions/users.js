@@ -18,7 +18,7 @@ exports.handler = async function (event, context) {
 
     mongoose.connect(process.env.CONNECTIONSTRING, { useNewUrlParser: true, useUnifiedTopology: true })
 
-
+    return context;
 
     if (command === "get-by-email") {
         app.get((userEmail, res) => {
