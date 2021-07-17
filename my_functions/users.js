@@ -12,7 +12,7 @@ exports.handler = async function (event, context) {
         return response;
         //GET user via email
     }
-    else if (command === "entries-wth-email"){
+    else if (command === "entries-with-email"){
         const response = {
             statusCode: 200,
             body: JSON.stringify('Get entries with an email'),
@@ -20,7 +20,7 @@ exports.handler = async function (event, context) {
         return response;
         //GET user entries via email
     }
-    else if (email === create-user) {
+    else if (email === "create-user") {
         const response = {
             statusCode: 200,
             body: JSON.stringify('Create User'),
