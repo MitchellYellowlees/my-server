@@ -1,4 +1,5 @@
 const User = require('../models/user.model')
+const cors = require('cors')
 
 exports.handler = async function (event, context) {
     const commandArray = event.path.split("/")
@@ -10,7 +11,7 @@ exports.handler = async function (event, context) {
     var app = express()
     app.use(cors())
     app.use(express.json())
-    
+
     mongoose.connect(process.env.CONNECTIONSTRING, { useNewUrlParser: true, useUnifiedTopology: true })
 
 
