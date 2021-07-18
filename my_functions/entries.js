@@ -42,6 +42,11 @@ exports.handler = async function (event, context) {
         //await db.collection("users").updateOne({_id:newOwner}, {$addToSet: {entries: newEntry._id}})
         const response = {
             statusCode: 200,
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                
+                'Access-Control-Allow-Credentials': true,
+              },
             body: JSON.stringify("New user added successfully"),
         };
         return response;
@@ -50,6 +55,11 @@ exports.handler = async function (event, context) {
         const result = await db.collection("entries").findOne({_id: entryId})
         const response = {
             statusCode: 200,
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                
+                'Access-Control-Allow-Credentials': true,
+              },
             body: JSON.stringify(result),
         };
         return response;
