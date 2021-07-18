@@ -1,5 +1,0 @@
-functions:
-users:
-events:
-- http:
-cors: true
