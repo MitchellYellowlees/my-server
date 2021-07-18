@@ -1,12 +1,48 @@
+const dotenv = require('dotenv')
+
+dotenv.config()
+
+const MongoClient = require("mongodb").MongoClient;
+let cachedDb = null;
+async function connectToDatabase() {
+  if (cachedDb) {
+    return cachedDb;
+  }
+  const client = await MongoClient.connect(process.env.CONNECTIONSTRING);
+  const db = await client.db('Cluster0');
+  cachedDb = db;
+  return db
+}
+
 exports.handler = async function (event, context) {
-    let command = event.path.split("/").pop()
-    if (command === "create-entry") {
+    context.callbackWaitsForEmptyEventLoop = false;
+
+    const db = await connectToDatabase();
+
+    const commandArray = event.path.split("/")
+    let command = commandArray.pop()
+
+    if (userEmail === "create-entry") {
+        const newFirst = event.queryStringParameters.firstName
+        const newLast = event.queryStringParameters.lastName
+        const newProfession = event.queryStringParameters.profession
+        const newDate = event.queryStringParameters.date
+        const newOwner = event.queryStringParameters.owner
+
+        const newEntry = {
+            firstName:newFirst,
+            lastName:newLast,
+            profession:newProfession,
+            date:newDate,
+            owner:newOwner,
+        }
+
+        await db.collection("entries").insertOne(newEntry)
+        await db.collection("users").updateOne({_id:newOwner}, {$addToSet: {entries: newEntry._id}})
         const response = {
             statusCode: 200,
-            body: JSON.stringify('Create entry'),
+            body: JSON.stringify("New user added successfully"),
         };
         return response;
-        //POST new netry
-        //UPDATE add entry to owner's entries[]
     }
 }
