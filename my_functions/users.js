@@ -65,7 +65,7 @@ exports.handler = async function (event, context) {
             statusCode: 200,
             headers: {
                 'Access-Control-Allow-Origin': '*',
-                
+                'Access-Control-Allow-Methods': {GET, POST, PUT, DELETE,OPTIONS},
                 'Access-Control-Allow-Credentials': true,
               },
             body: JSON.stringify("New user added successfully"),
