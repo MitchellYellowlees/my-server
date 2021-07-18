@@ -1,63 +1,68 @@
 const User = require('../models/user.model')
-const dotenv = require('dotenv')
 
+
+const express = require('express')
+const cors = require('cors')
+const mongoose = require('mongoose')
+
+//requiring dotenv
+const dotenv = require('dotenv')
 dotenv.config()
 
-const MongoClient = require("mongodb").MongoClient;
-let cachedDb = null;
-async function connectToDatabase() {
-  if (cachedDb) {
-    return cachedDb;
-  }
-  const client = await MongoClient.connect(process.env.CONNECTIONSTRING);
-  const db = await client.db('Cluster0');
-  cachedDb = db;
-  return db
-}
+const app = express()
+const port = process.env.PORT || 5000
+
+app.use(cors())
+app.use(express.json())
+
+// connect to mongoDB atlas
+mongoose.connect(process.env.CONNECTIONSTRING, { useNewUrlParser: true, useUnifiedTopology: true })
+
+const connection = mongoose.connection
+connection.once('open', () => {
+    console.log('MongoDB connection established successfully')
+})
 
 exports.handler = async function (event, context) {
     
-    context.callbackWaitsForEmptyEventLoop = false;
-
-    const db = await connectToDatabase();
-
-    const commandArray = event.path.split("/")
-    let userEmail = commandArray.pop()
-    let command = commandArray.pop()
+    const router = require('express').Router()
+    
 
     
     
-    if (command === "get-by-email") {
-        const result = await db.collection("users").findOne({email: userEmail});
-        const response = {
-            statusCode: 200,
-            body:JSON.stringify(result),
-        };
-        return response;
-
-        
-        //GET user via email
-    }
-    else if (command === "entries-with-email"){
-        //NOT YET WORKING
-        const result =  await db.collection("users").findOne({email: userEmail})
-        const response = {
-            statusCode: 200,
-            body: JSON.stringify(result.entries),
-        };
-        return response;
-        //GET user entries via email
-    }
-    else if (userEmail === "create-user") {
-        const newMail = event.queryStringParameters.email
-        await db.collection("users").insertOne({email: newMail})
-        const response = {
-            statusCode: 200,
-            body: JSON.stringify("New user added successfully"),
-        };
-        return response;
-        //POST new user
-    }
+    router.route('/create-user').post((req, res) => {
+        const email = req.body.email
+    
+        const newUser = new User({
+            email,
+        })
+    
+        newUser
+        .save()
+        .then((user) => res.json({ message: 'User created', response: user }))
+        .catch((err) => res.status(400).json({ message: 'Error: could not create user', response: err }))
+    })
+    router.route('/get-by-email/:email').get((req, res) => {
+        User.findOne({ email: req.params.email })
+        .then((user) => res.json({ message: 'Got user with email that was passed in', response: user}))
+        .catch((err) => res.status(400).json({ message: 'Error: could not get user with the provided email', response: err,}))
+    })
+    router.route('/get/entries-with-email/:email').get((req, res) => {
+        User.findOne({ email: req.params.email })
+        .populate('entries')
+        .exec()
+        .then((user) =>
+        res.json({
+            message: 'Got entries from user email',
+            response: user.entries,
+        }))
+        .catch((err) => {
+            res.status(400).json({
+                message: 'Error: could not get user with given email',
+                response: err,
+            })
+        })
+    })
     
 
 }
