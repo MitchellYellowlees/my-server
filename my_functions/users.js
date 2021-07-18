@@ -31,6 +31,10 @@ exports.handler = async function (event, context) {
         const result = await db.collection("users").findOne({email: userEmail});
         const response = {
             statusCode: 200,
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Credentials': true,
+              },
             body:JSON.stringify(result),
         };
         return response;
@@ -43,6 +47,10 @@ exports.handler = async function (event, context) {
         const result =  await db.collection("users").findOne({email: userEmail})
         const response = {
             statusCode: 200,
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Credentials': true,
+              },
             body: JSON.stringify(result.entries),
         };
         return response;
@@ -53,6 +61,10 @@ exports.handler = async function (event, context) {
         await db.collection("users").insertOne({email: newMail})
         const response = {
             statusCode: 200,
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Credentials': true,
+              },
             body: JSON.stringify("New user added successfully"),
         };
         return response;
