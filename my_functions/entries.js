@@ -60,7 +60,7 @@ exports.handler = async function (event, context) {
                 
                 'Access-Control-Allow-Credentials': true,
               },
-            body: JSON.stringify(result),
+            body: JSON.stringify("bulgogi"),
         };
         return response;
     }
