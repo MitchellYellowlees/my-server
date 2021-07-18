@@ -54,7 +54,7 @@ exports.handler = async function (event, context) {
     }
     else if (command === "get") {
         var o_id = new ObjectId(entryId)
-        const result = await db.collection("entries").find({_id:o_id})
+        const result = await db.collection("entries").findOne({_id:o_id})
         const response = {
             statusCode: 200,
             headers: {
