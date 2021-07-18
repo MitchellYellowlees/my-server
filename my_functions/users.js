@@ -1,10 +1,11 @@
 const User = require('../models/user.model')
 const dotenv = require('dotenv')
-
+const cors = require("cors")
 dotenv.config()
 
 const MongoClient = require("mongodb").MongoClient;
 let cachedDb = null;
+MongoClient.use(cors)
 async function connectToDatabase() {
   if (cachedDb) {
     return cachedDb;
