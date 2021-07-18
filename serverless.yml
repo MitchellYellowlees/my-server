@@ -1,0 +1,11 @@
+# serverless.yml
+
+functions:
+  user:
+    events:
+      - http:
+        cors: true
+  entry:
+    events:
+      - http:
+        cors: true
