@@ -27,18 +27,16 @@ exports.handler = async function (event, context) {
         const newLast = event.queryStringParameters.lastName
         const newProfession = event.queryStringParameters.profession
         const newDate = event.queryStringParameters.date
-        const newOwner = event.queryStringParameters.owner
 
         const newEntry = {
             firstName:newFirst,
             lastName:newLast,
             profession:newProfession,
             date:newDate,
-            owner:newOwner,
         }
 
         await db.collection("entries").insertOne(newEntry)
-        await db.collection("users").updateOne({_id:newOwner}, {$addToSet: {entries: newEntry._id}})
+        //await db.collection("users").updateOne({_id:newOwner}, {$addToSet: {entries: newEntry._id}})
         const response = {
             statusCode: 200,
             body: JSON.stringify("New user added successfully"),
