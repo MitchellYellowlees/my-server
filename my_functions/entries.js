@@ -20,9 +20,10 @@ exports.handler = async function (event, context) {
     const db = await connectToDatabase();
 
     const commandArray = event.path.split("/")
+    let entryId = commandArray.pop()
     let command = commandArray.pop()
 
-    if (command === "create-entry") {
+    if (entryId === "create-entry") {
         const newFirst = event.queryStringParameters.firstName
         const newLast = event.queryStringParameters.lastName
         const newProfession = event.queryStringParameters.profession
@@ -42,6 +43,14 @@ exports.handler = async function (event, context) {
         const response = {
             statusCode: 200,
             body: JSON.stringify("New user added successfully"),
+        };
+        return response;
+    }
+    else if (command === "get") {
+        const result = await db.collection("entries").findById(entryId)
+        const response = {
+            statusCode: 200,
+            body: JSON.stringify(result),
         };
         return response;
     }
