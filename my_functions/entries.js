@@ -22,7 +22,7 @@ exports.handler = async function (event, context) {
     const commandArray = event.path.split("/")
     let command = commandArray.pop()
 
-    if (userEmail === "create-entry") {
+    if (command === "create-entry") {
         const newFirst = event.queryStringParameters.firstName
         const newLast = event.queryStringParameters.lastName
         const newProfession = event.queryStringParameters.profession
