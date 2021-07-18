@@ -3,6 +3,7 @@ const dotenv = require('dotenv')
 dotenv.config()
 
 const MongoClient = require("mongodb").MongoClient;
+var ObjectId = require('mongodb').ObjectId;
 let cachedDb = null;
 async function connectToDatabase() {
   if (cachedDb) {
@@ -52,7 +53,8 @@ exports.handler = async function (event, context) {
         return response;
     }
     else if (command === "get") {
-        const result = await db.collection("entries").find({"_id":entryId})
+        var o_id = new ObjectId(entryId)
+        const result = await db.collection("entries").find({_id:o_id})
         const response = {
             statusCode: 200,
             headers: {
