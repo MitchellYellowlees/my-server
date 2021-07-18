@@ -33,6 +33,7 @@ exports.handler = async function (event, context) {
             statusCode: 200,
             headers: {
                 'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, PUT, PATCH, DELETE',
                 'Access-Control-Allow-Credentials': true,
               },
             body:JSON.stringify(result),
@@ -49,6 +50,7 @@ exports.handler = async function (event, context) {
             statusCode: 200,
             headers: {
                 'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, PUT, PATCH, DELETE',
                 'Access-Control-Allow-Credentials': true,
               },
             body: JSON.stringify(result.entries),
@@ -63,7 +65,7 @@ exports.handler = async function (event, context) {
             statusCode: 200,
             headers: {
                 'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Methods': {GET, POST, OPTIONS, PUT, PATCH, DELETE},
+                'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, PUT, PATCH, DELETE',
                 'Access-Control-Allow-Credentials': true,
               },
             body: JSON.stringify("New user added successfully"),
