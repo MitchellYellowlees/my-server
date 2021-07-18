@@ -26,13 +26,15 @@ exports.handler = async function (event, context) {
         const newFirst = event.queryStringParameters.firstName
         const newLast = event.queryStringParameters.lastName
         const newProfession = event.queryStringParameters.profession
-        const newDate = event.queryStringParameters.date
+        //const newDate = event.queryStringParameters.date
+        //const newOwner = event.queryStringParameters.owner
 
         const newEntry = {
             firstName:newFirst,
             lastName:newLast,
             profession:newProfession,
-            date:newDate,
+            //date:newDate,
+            //owner:newOwner,
         }
 
         await db.collection("entries").insertOne(newEntry)
